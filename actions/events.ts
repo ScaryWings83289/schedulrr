@@ -4,7 +4,7 @@ import { db } from "@/lib/prisma";
 import { eventSchema, type EventInput } from "@/lib/validators";
 import { auth } from "@clerk/nextjs/server";
 
-export async function createEvent(data: EventInput) {
+export const createEvent = async (data: EventInput) => {
   const { userId } = await auth();
 
   if (!userId) {
@@ -29,9 +29,9 @@ export async function createEvent(data: EventInput) {
   });
 
   return event;
-}
+};
 
-export async function getUserEvents() {
+export const getUserEvents = async () => {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
@@ -56,9 +56,9 @@ export async function getUserEvents() {
   });
 
   return { events, username: user.username };
-}
+};
 
-export async function deleteEvent(eventId: string) {
+export const deleteEvent = async (eventId: string) => {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
@@ -85,9 +85,9 @@ export async function deleteEvent(eventId: string) {
   });
 
   return { success: true } as const;
-}
+};
 
-export async function getEventDetails(username: string, eventId: string) {
+export const getEventDetails = async (username: string, eventId: string) => {
   const event = await db.event.findFirst({
     where: {
       id: eventId,
@@ -107,4 +107,4 @@ export async function getEventDetails(username: string, eventId: string) {
   });
 
   return event;
-}
+};

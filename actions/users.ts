@@ -3,7 +3,7 @@
 import { db } from "@/lib/prisma";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
-export async function updateUsername(username: string) {
+export const updateUsername = async (username: string) => {
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
@@ -28,9 +28,9 @@ export async function updateUsername(username: string) {
   });
 
   return { success: true } as const;
-}
+};
 
-export async function getUserByUsername(username: string) {
+export const getUserByUsername = async (username: string) => {
   const user = await db.user.findUnique({
     where: { username },
     select: {
@@ -60,4 +60,4 @@ export async function getUserByUsername(username: string) {
   });
 
   return user;
-}
+};

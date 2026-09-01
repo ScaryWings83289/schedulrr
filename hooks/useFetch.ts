@@ -16,8 +16,10 @@ const useFetch = <T, TArgs extends unknown[]>(
         const response = await cb(...args);
         setData(response);
         setError(null);
+        return response;
       } catch (error) {
         setError(error instanceof Error ? error : new Error(String(error)));
+        return undefined;
       } finally {
         setLoading(false);
       }

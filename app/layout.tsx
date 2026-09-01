@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import CreateEventDrawer from "@/components/CreateEventDrawer";
 import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -31,6 +32,8 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
               <p>Made with 💗 by Divyankar</p>
             </div>
           </footer>
+
+          <CreateEventDrawer />
         </ClerkProvider>
       </body>
     </html >

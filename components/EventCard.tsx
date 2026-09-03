@@ -35,18 +35,17 @@ type EventCardProps = {
 const EventCard = ({ event, username, isPublic = false }: EventCardProps) => {
   const [isCopied, setIsCopied] = useState(false);
   const router = useRouter();
-
-  const eventUrl = username
-    ? `${window.location.origin}/${username}/${event.id}`
-    : null;
+  const eventPath = username ? `/${username}/${event.id}` : null;
 
   const handleCopy = async () => {
-    if (!eventUrl) {
+    if (!eventPath) {
       return;
     }
 
     try {
-      await navigator.clipboard.writeText(eventUrl);
+      await navigator.clipboard.writeText(
+        `${window.location.origin}${eventPath}`,
+      );
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
@@ -69,13 +68,13 @@ const EventCard = ({ event, username, isPublic = false }: EventCardProps) => {
 
   const handleCardClick = (e: MouseEvent<HTMLDivElement>) => {
     if (
-      !eventUrl ||
+      !eventPath ||
       (e.target instanceof Element && e.target.closest("button"))
     ) {
       return;
     }
 
-    window.open(eventUrl, "_blank");
+    window.open(eventPath, "_blank");
   };
 
   const descriptionPreview = event.description?.split(".")[0];

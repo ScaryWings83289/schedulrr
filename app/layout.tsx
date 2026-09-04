@@ -17,6 +17,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
     <html lang='en'>
+      <head>
+        <link rel='icon' href='/logo-s.png' sizes='any' />
+      </head>
       <body className={inter.className}>
         <ClerkProvider>
           {/* Header */}

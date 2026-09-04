@@ -6,13 +6,13 @@ const toUsername = (name: string, userId: string) =>
   `${name.split(" ").join("-")}${userId.slice(-4)}`;
 
 export const checkUser = async (): Promise<User | null> => {
-  const user = await currentUser();
-
-  if (!user) {
-    return null;
-  }
-
   try {
+    const user = await currentUser();
+
+    if (!user) {
+      return null;
+    }
+
     const loggedInUser = await db.user.findUnique({
       where: {
         clerkUserId: user.id,
